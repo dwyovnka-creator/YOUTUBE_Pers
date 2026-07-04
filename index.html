@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LENSA — Pers Sekolah</title>
+<meta name="description" content="Media dokumentasi seluruh kegiatan organisasi yang menyajikan berita, informasi, dan karya jurnalistik secara profesional.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --silver: #C8CCD0;
+  --silver-dark: #9AA0A6;
+  --white: #FFFFFF;
+  --grey-light: #F5F6F8;
+  --grey-dark: #4B4B4B;
+  --ink: #26282B;
+  --accent: #6C7A89;
+  --glass-bg: rgba(255,255,255,0.55);
+  --glass-border: rgba(255,255,255,0.65);
+  --glass-shadow: 0 8px 32px rgba(75,75,75,0.12);
+  --radius-lg: 26px;
+  --radius-md: 18px;
+  --radius-sm: 12px;
+  --bg: var(--grey-light);
+  --surface: var(--white);
+  --text: var(--ink);
+  --text-soft: #6B6E72;
+  --nav-bg: rgba(255,255,255,0.35);
+  --transition: all .45s cubic-bezier(.22,.85,.32,1);
+}
+[data-theme="dark"]{
+  --bg: #1B1C1E;
+  --surface: #232426;
+  --text: #F1F2F3;
+  --text-soft: #A9ABAE;
+  --glass-bg: rgba(40,41,44,0.55);
+  --glass-border: rgba(255,255,255,0.08);
+  --glass-shadow: 0 8px 32px rgba(0,0,0,0.45);
+  --nav-bg: rgba(27,28,30,0.45);
+  --silver: #4B4E52;
+  --grey-light: #202123;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  transition:background .5s ease, color .5s ease;
+  overflow-x:hidden;
+}
+h1,h2,h3,h4{font-family:'Poppins',sans-serif;}
+a{text-decoration:none;color:inherit;}
+button{font-family:'Inter',sans-serif;cursor:pointer;border:none;background:none;color:inherit;}
+img{max-width:100%;display:block;}
+::selection{background:var(--silver-dark);color:#fff;}
+
+/* ---------- Skeleton loader ---------- */
+#loader{
+  position:fixed;inset:0;z-index:9999;background:var(--grey-light);
+  display:flex;align-items:center;justify-content:center;
+  transition:opacity .6s ease, visibility .6s ease;
+}
+#loader.hide{opacity:0;visibility:hidden;}
+.loader-ring{
+  width:64px;height:64px;border-radius:50%;
+  border:3px solid var(--silver);
+  border-top-color:var(--grey-dark);
+  animation:spin 1s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* ---------- Navbar ---------- */
+.navbar{
+  position:fixed;top:0;left:0;width:100%;z-index:1000;
+  padding:22px 6%;
+  display:flex;align-items:center;justify-content:space-between;
+  background:transparent;
+  transition:var(--transition);
+}
+.navbar.scrolled{
+  padding:14px 6%;
+  background:var(--nav-bg);
+  backdrop-filter:blur(18px) saturate(160%);
+  -webkit-backdrop-filter:blur(18px) saturate(160%);
+  box-shadow:0 4px 30px rgba(75,75,75,0.08);
+  border-bottom:1px solid var(--glass-border);
+}
+.brand{
+  display:flex;align-items:center;gap:10px;
+  font-family:'Poppins',sans-serif;font-weight:700;font-size:1.25rem;
+  letter-spacing:0.5px;
+}
+.brand-mark{
+  width:38px;height:38px;border-radius:11px;
+  background:linear-gradient(135deg,#E6E8EB,#B7BCC2 55%,#8B9096);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:inset 0 1px 1px rgba(255,255,255,.7), 0 4px 10px rgba(75,75,75,.25);
+}
+.brand-mark svg{width:20px;height:20px;}
+.nav-links{display:flex;gap:34px;align-items:center;}
+.nav-links a{
+  font-size:.93rem;font-weight:500;position:relative;padding:4px 0;
+  color:var(--text);opacity:.85;
+}
+.nav-links a::after{
+  content:'';position:absolute;left:0;bottom:-4px;width:0;height:2px;
+  background:var(--grey-dark);transition:width .35s ease;
+}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%;}
+.nav-links a.active{opacity:1;}
+.nav-actions{display:flex;align-items:center;gap:14px;}
+.icon-btn{
+  width:40px;height:40px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--glass-bg);border:1px solid var(--glass-border);
+  backdrop-filter:blur(10px);
+  transition:var(--transition);
+}
+.icon-btn:hover{transform:translateY(-2px) scale(1.05);box-shadow:var(--glass-shadow);}
+.icon-btn svg{width:18px;height:18px;stroke:var(--text);}
+.hamburger{display:none;}
+
+/* ---------- Hero ---------- */
+.hero{
+  position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;
+  text-align:center;overflow:hidden;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255,255,255,.55), transparent 45%),
+    radial-gradient(circle at 80% 75%, rgba(255,255,255,.35), transparent 50%),
+    linear-gradient(160deg,#DCDFE2 0%, #C8CCD0 45%, #AEB3B9 75%, #9AA0A6 100%);
+}
+[data-theme="dark"] .hero{
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255,255,255,.06), transparent 45%),
+    linear-gradient(160deg,#2A2B2D 0%, #1F2022 60%, #141516 100%);
+}
+.hero-noise{position:absolute;inset:0;opacity:.5;pointer-events:none;
+  background-image:radial-gradient(rgba(255,255,255,0.4) 1px, transparent 1px);
+  background-size:3px 3px;
+}
+.hero-orb{
+  position:absolute;border-radius:50%;filter:blur(60px);
+  background:radial-gradient(circle,rgba(255,255,255,.8),rgba(255,255,255,0));
+  animation:float 9s ease-in-out infinite;
+}
+.orb1{width:340px;height:340px;top:8%;left:6%;animation-delay:0s;}
+.orb2{width:260px;height:260px;bottom:5%;right:8%;animation-delay:2s;}
+@keyframes float{
+  0%,100%{transform:translateY(0) translateX(0);}
+  50%{transform:translateY(-25px) translateX(15px);}
+}
+.hero-content{position:relative;z-index:2;max-width:820px;padding:0 24px;}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:8px 18px;border-radius:999px;
+  background:var(--glass-bg);border:1px solid var(--glass-border);
+  backdrop-filter:blur(14px);font-size:.78rem;font-weight:600;
+  letter-spacing:1.5px;text-transform:uppercase;color:var(--grey-dark);
+  margin-bottom:26px;opacity:0;animation:fadeUp .8s .1s ease forwards;
+}
+[data-theme="dark"] .hero-eyebrow{color:var(--text);}
+.hero h1{
+  font-size:clamp(2.4rem,6vw,4.6rem);font-weight:800;line-height:1.05;
+  color:#3A3C3F;margin-bottom:22px;letter-spacing:-1px;
+  opacity:0;animation:fadeUp .9s .25s ease forwards;
+}
+[data-theme="dark"] .hero h1{color:#F1F2F3;}
+.hero p{
+  font-size:1.08rem;color:#565A5E;max-width:560px;margin:0 auto 38px;line-height:1.7;
+  opacity:0;animation:fadeUp .9s .4s ease forwards;
+}
+[data-theme="dark"] .hero p{color:#B4B7BA;}
+.hero-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;
+  opacity:0;animation:fadeUp .9s .55s ease forwards;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+
+.btn{
+  padding:15px 32px;border-radius:999px;font-weight:600;font-size:.92rem;
+  display:inline-flex;align-items:center;gap:8px;transition:var(--transition);
+}
+.btn-primary{
+  background:linear-gradient(135deg,#5C6268,#3F4245);color:#fff;
+  box-shadow:0 10px 24px rgba(60,63,66,.3);
+}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 16px 30px rgba(60,63,66,.4);}
+.btn-ghost{
+  background:var(--glass-bg);border:1px solid var(--glass-border);
+  backdrop-filter:blur(14px);color:var(--grey-dark);
+}
+[data-theme="dark"] .btn-ghost{color:var(--text);}
+.btn-ghost:hover{transform:translateY(-3px);box-shadow:var(--glass-shadow);}
+
+.scroll-cue{
+  position:absolute;bottom:36px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:8px;font-size:.72rem;
+  letter-spacing:2px;color:var(--grey-dark);opacity:.7;text-transform:uppercase;
+  animation:bob 2.4s ease-in-out infinite;
+}
+[data-theme="dark"] .scroll-cue{color:var(--text-soft);}
+@keyframes bob{0%,100%{transform:translate(-50%,0);}50%{transform:translate(-50%,8px);}}
+
+/* ---------- Sections generic ---------- */
+.section{padding:110px 6%;}
+.section-head{max-width:680px;margin:0 auto 56px;text-align:center;}
+.eyebrow-tag{
+  display:inline-block;font-size:.75rem;font-weight:700;letter-spacing:2px;
+  text-transform:uppercase;color:var(--grey-dark);opacity:.65;margin-bottom:14px;
+}
+.section-head h2{font-size:clamp(1.8rem,3.4vw,2.6rem);font-weight:700;margin-bottom:14px;}
+.section-head p{color:var(--text-soft);font-size:1.02rem;line-height:1.7;}
+
+.reveal{opacity:0;transform:translateY(36px);transition:opacity .8s ease, transform .8s ease;}
+.reveal.in{opacity:1;transform:translateY(0);}
+
+/* ---------- Search + Filter ---------- */
+.controls-bar{
+  display:flex;gap:16px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  max-width:1180px;margin:0 auto 42px;
+}
+.search-box{
+  flex:1;min-width:240px;display:flex;align-items:center;gap:10px;
+  padding:13px 20px;border-radius:999px;
+  background:var(--glass-bg);border:1px solid var(--glass-border);
+  backdrop-filter:blur(14px);
+}
+.search-box svg{width:17px;height:17px;stroke:var(--text-soft);flex-shrink:0;}
+.search-box input{
+  border:none;background:none;outline:none;width:100%;font-size:.92rem;color:var(--text);
+}
+.filters{display:flex;gap:10px;flex-wrap:wrap;}
+.filter-chip{
+  padding:10px 20px;border-radius:999px;font-size:.85rem;font-weight:500;
+  background:var(--glass-bg);border:1px solid var(--glass-border);
+  backdrop-filter:blur(14px);transition:var(--transition);color:var(--text-soft);
+}
+.filter-chip:hover{transform:translateY(-2px);}
+.filter-chip.active{
+  background:linear-gradient(135deg,#5C6268,#3F4245);color:#fff;border-color:transparent;
+  box-shadow:0 8px 18px rgba(60,63,66,.28);
+}
+
+/* ---------- News Cards ---------- */
+.news-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+  gap:32px;max-width:1180px;margin:0 auto;
+}
+.card{
+  background:var(--surface);border-radius:var(--radius-lg);overflow:hidden;
+  border:1px solid var(--glass-border);
+  box-shadow:0 6px 20px rgba(75,75,75,.08);
+  transition:var(--transition);cursor:pointer;
+  display:flex;flex-direction:column;
+}
+.card:hover{transform:translateY(-10px);box-shadow:0 26px 44px rgba(75,75,75,.18);}
+.card-img{position:relative;height:200px;overflow:hidden;background:var(--silver);}
+.card-img img{width:100%;height:100%;object-fit:cover;transition:transform .7s ease;}
+.card:hover .card-img img{transform:scale(1.09);}
+.card-cat{
+  position:absolute;top:14px;left:14px;padding:6px 14px;border-radius:999px;
+  background:rgba(255,255,255,0.85);backdrop-filter:blur(8px);
+  font-size:.68rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--grey-dark);
+}
+.card-body{padding:24px;display:flex;flex-direction:column;gap:12px;flex:1;}
+.card-meta{display:flex;gap:14px;font-size:.78rem;color:var(--text-soft);}
+.card-meta span{display:flex;align-items:center;gap:5px;}
+.card-body h3{font-size:1.12rem;font-weight:600;line-height:1.4;}
+.card-body p{font-size:.9rem;color:var(--text-soft);line-height:1.6;flex:1;}
+.card-link{
+  font-size:.85rem;font-weight:600;display:inline-flex;align-items:center;gap:6px;
+  color:var(--grey-dark);margin-top:4px;
+}
+[data-theme="dark"] .card-link{color:var(--text);}
+.card-link svg{width:14px;height:14px;transition:transform .3s ease;}
+.card:hover .card-link svg{transform:translateX(4px);}
+
+.load-more-wrap{display:flex;justify-content:center;margin-top:50px;}
+
+/* ---------- Pagination ---------- */
+.pagination{display:flex;justify-content:center;gap:10px;margin-top:50px;}
+.page-btn{
+  width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:var(--glass-bg);border:1px solid var(--glass-border);font-weight:600;font-size:.85rem;
+  transition:var(--transition);
+}
+.page-btn.active{background:linear-gradient(135deg,#5C6268,#3F4245);color:#fff;}
+.page-btn:hover:not(.active){transform:translateY(-2px);}
+
+/* ---------- Detail Page ---------- */
+.detail-wrap{max-width:860px;margin:0 auto;padding:0 6px;}
+.detail-cover{width:100%;height:420px;border-radius:var(--radius-lg);overflow:hidden;margin-bottom:36px;box-shadow:0 20px 50px rgba(75,75,75,.18);}
+.detail-cover img{width:100%;height:100%;object-fit:cover;}
+.detail-cat{font-size:.75rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--grey-dark);opacity:.7;}
+.detail-wrap h1{font-size:clamp(1.7rem,4vw,2.6rem);margin:14px 0 20px;line-height:1.25;}
+.detail-meta{display:flex;gap:22px;flex-wrap:wrap;color:var(--text-soft);font-size:.9rem;margin-bottom:36px;padding-bottom:28px;border-bottom:1px solid var(--glass-border);}
+.detail-meta span{display:flex;align-items:center;gap:6px;}
+.detail-body{font-size:1.03rem;line-height:1.9;color:var(--text);}
+.detail-body p{margin-bottom:20px;}
+.detail-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px;margin:36px 0;}
+.detail-gallery img{border-radius:var(--radius-sm);height:130px;width:100%;object-fit:cover;cursor:pointer;transition:transform .3s ease;}
+.detail-gallery img:hover{transform:scale(1.04);}
+.detail-nav{display:flex;justify-content:space-between;align-items:center;margin-top:50px;padding-top:30px;border-top:1px solid var(--glass-border);gap:16px;flex-wrap:wrap;}
+.detail-nav a{font-size:.88rem;font-weight:600;display:flex;align-items:center;gap:8px;padding:12px 20px;border-radius:999px;background:var(--glass-bg);border:1px solid var(--glass-border);transition:var(--transition);}
+.detail-nav a:hover{transform:translateY(-2px);}
+
+/* ---------- Gallery Page ---------- */
+.gallery-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px;
+  max-width:1180px;margin:0 auto;
+}
+.gallery-item{border-radius:var(--radius-md);overflow:hidden;position:relative;cursor:pointer;aspect-ratio:4/3;box-shadow:0 6px 18px rgba(75,75,75,.1);}
+.gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease;}
+.gallery-item:hover img{transform:scale(1.1);}
+.gallery-overlay{
+  position:absolute;inset:0;background:linear-gradient(0deg,rgba(30,31,33,.75),transparent 55%);
+  display:flex;align-items:flex-end;padding:16px;opacity:0;transition:opacity .35s ease;
+}
+.gallery-item:hover .gallery-overlay{opacity:1;}
+.gallery-overlay span{color:#fff;font-size:.85rem;font-weight:600;}
+
+/* Lightbox */
+.lightbox{
+  position:fixed;inset:0;background:rgba(15,16,17,.92);z-index:3000;
+  display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;
+  transition:opacity .4s ease, visibility .4s ease;
+}
+.lightbox.open{opacity:1;visibility:visible;}
+.lightbox img{max-width:82vw;max-height:78vh;border-radius:16px;box-shadow:0 30px 80px rgba(0,0,0,.5);
+  transform:scale(.92);transition:transform .4s ease;}
+.lightbox.open img{transform:scale(1);}
+.lightbox-close,.lightbox-prev,.lightbox-next{
+  position:absolute;width:48px;height:48px;border-radius:50%;
+  background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;
+  color:#fff;transition:var(--transition);
+}
+.lightbox-close{top:28px;right:28px;}
+.lightbox-prev{left:28px;top:50%;transform:translateY(-50%);}
+.lightbox-next{right:28px;top:50%;transform:translateY(-50%);}
+.lightbox-close:hover,.lightbox-prev:hover,.lightbox-next:hover{background:rgba(255,255,255,.25);}
+.lightbox svg{width:20px;height:20px;}
+
+/* ---------- About ---------- */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;max-width:1180px;margin:0 auto 90px;align-items:center;}
+.about-visual{
+  border-radius:var(--radius-lg);overflow:hidden;position:relative;height:420px;
+  box-shadow:0 20px 50px rgba(75,75,75,.16);
+}
+.about-visual img{width:100%;height:100%;object-fit:cover;}
+.about-text h3{font-size:1.7rem;margin-bottom:16px;}
+.about-text p{color:var(--text-soft);line-height:1.85;margin-bottom:16px;font-size:1rem;}
+.mv-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;max-width:1180px;margin:0 auto 90px;}
+.mv-card{
+  background:var(--glass-bg);border:1px solid var(--glass-border);backdrop-filter:blur(14px);
+  border-radius:var(--radius-lg);padding:36px;box-shadow:var(--glass-shadow);
+}
+.mv-card .icon-circle{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#E6E8EB,#AEB3B9);display:flex;align-items:center;justify-content:center;margin-bottom:18px;}
+.mv-card .icon-circle svg{width:24px;height:24px;stroke:var(--grey-dark);}
+.mv-card h4{font-size:1.2rem;margin-bottom:10px;}
+.mv-card p{color:var(--text-soft);font-size:.94rem;line-height:1.75;}
+
+.timeline{max-width:760px;margin:0 auto 90px;position:relative;padding-left:36px;}
+.timeline::before{content:'';position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:var(--silver);}
+.tl-item{position:relative;padding-bottom:36px;}
+.tl-item::before{content:'';position:absolute;left:-36px;top:4px;width:16px;height:16px;border-radius:50%;background:var(--grey-dark);border:3px solid var(--surface);box-shadow:0 0 0 2px var(--silver);}
+.tl-item h5{font-size:.85rem;font-weight:700;color:var(--grey-dark);opacity:.7;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;}
+.tl-item p{color:var(--text-soft);font-size:.95rem;line-height:1.7;}
+
+/* Structure / Team */
+.struktur-wrap{max-width:1180px;margin:0 auto 90px;}
+.struktur-top{display:flex;justify-content:center;margin-bottom:26px;}
+.struktur-row{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-bottom:26px;}
+.org-node{
+  background:var(--surface);border:1px solid var(--glass-border);border-radius:var(--radius-md);
+  padding:18px 26px;text-align:center;box-shadow:0 6px 16px rgba(75,75,75,.08);min-width:170px;
+}
+.org-node.lead{background:linear-gradient(135deg,#5C6268,#3F4245);color:#fff;}
+.org-node h6{font-size:.95rem;font-weight:700;margin-bottom:4px;}
+.org-node span{font-size:.76rem;opacity:.75;}
+
+.team-tabs{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:44px;}
+.team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:26px;max-width:1180px;margin:0 auto;}
+.profile-card{
+  background:var(--surface);border-radius:var(--radius-lg);overflow:hidden;text-align:center;
+  border:1px solid var(--glass-border);box-shadow:0 6px 18px rgba(75,75,75,.08);
+  transition:var(--transition);padding-bottom:24px;
+}
+.profile-card:hover{transform:translateY(-8px);box-shadow:0 20px 36px rgba(75,75,75,.16);}
+.profile-photo{height:210px;overflow:hidden;background:var(--silver);}
+.profile-photo img{width:100%;height:100%;object-fit:cover;}
+.profile-card h5{margin-top:18px;font-size:1.02rem;font-weight:600;}
+.profile-card span{font-size:.82rem;color:var(--text-soft);}
+
+/* ---------- Stats ---------- */
+.stats-section{
+  background:linear-gradient(135deg,#E9EBED,#C8CCD0);border-radius:36px;
+  max-width:1180px;margin:0 auto;padding:70px 6%;
+  display:grid;grid-template-columns:repeat(4,1fr);gap:30px;text-align:center;
+}
+[data-theme="dark"] .stats-section{background:linear-gradient(135deg,#2A2B2D,#1B1C1E);}
+.stat h3{font-size:clamp(2.2rem,4vw,3.2rem);font-weight:800;color:#3A3C3F;margin-bottom:8px;}
+[data-theme="dark"] .stat h3{color:#F1F2F3;}
+.stat p{font-size:.85rem;color:#565A5E;text-transform:uppercase;letter-spacing:1.5px;font-weight:600;}
+[data-theme="dark"] .stat p{color:#A9ABAE;}
+
+/* ---------- Contact ---------- */
+.contact-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:50px;max-width:1180px;margin:0 auto;}
+.contact-info{display:flex;flex-direction:column;gap:22px;}
+.info-item{display:flex;gap:16px;align-items:flex-start;}
+.info-item .icon-circle{
+  width:46px;height:46px;border-radius:50%;background:var(--glass-bg);border:1px solid var(--glass-border);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;backdrop-filter:blur(10px);
+}
+.info-item .icon-circle svg{width:20px;height:20px;stroke:var(--grey-dark);}
+[data-theme="dark"] .info-item .icon-circle svg{stroke:var(--text);}
+.info-item h5{font-size:.95rem;margin-bottom:4px;}
+.info-item p{color:var(--text-soft);font-size:.9rem;}
+.social-row{display:flex;gap:12px;margin-top:10px;}
+
+.contact-form{
+  background:var(--glass-bg);border:1px solid var(--glass-border);backdrop-filter:blur(16px);
+  border-radius:var(--radius-lg);padding:40px;box-shadow:var(--glass-shadow);
+}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+.form-group{display:flex;flex-direction:column;gap:7px;}
+.form-group.full{grid-column:1/-1;}
+.form-group label{font-size:.82rem;font-weight:600;color:var(--text-soft);}
+.form-group input,.form-group textarea{
+  padding:13px 16px;border-radius:var(--radius-sm);border:1px solid var(--glass-border);
+  background:var(--surface);color:var(--text);font-family:'Inter',sans-serif;font-size:.92rem;outline:none;
+  transition:border-color .3s ease, box-shadow .3s ease;
+}
+.form-group input:focus,.form-group textarea:focus{border-color:var(--grey-dark);box-shadow:0 0 0 3px rgba(75,75,75,.1);}
+.form-group textarea{resize:vertical;min-height:110px;}
+.form-note{font-size:.82rem;color:var(--text-soft);margin-top:14px;opacity:.85;}
+
+/* ---------- Footer ---------- */
+footer{background:var(--grey-dark);color:#E9EAEC;padding:70px 6% 30px;}
+[data-theme="dark"] footer{background:#141516;}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:44px;max-width:1180px;margin:0 auto 50px;}
+.footer-brand .brand{color:#fff;margin-bottom:14px;}
+.footer-brand p{color:#B9BBBD;font-size:.9rem;line-height:1.7;max-width:280px;}
+.footer-col h6{font-size:.85rem;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:18px;color:#D6D8DA;}
+.footer-col a{display:block;color:#B9BBBD;font-size:.9rem;margin-bottom:12px;transition:color .3s ease;}
+.footer-col a:hover{color:#fff;}
+.footer-social{display:flex;gap:10px;margin-top:6px;}
+.footer-social a{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;}
+.footer-social a svg{width:16px;height:16px;stroke:#E9EAEC;}
+.footer-social a:hover{background:rgba(255,255,255,.18);}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:24px;max-width:1180px;margin:0 auto;
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:.82rem;color:#9B9D9F;}
+
+/* ---------- Page toggle ---------- */
+.page{display:none;}
+.page.active{display:block;}
+
+/* ---------- Empty state ---------- */
+.empty-state{text-align:center;padding:60px 20px;color:var(--text-soft);grid-column:1/-1;}
+.empty-state svg{width:52px;height:52px;stroke:var(--silver-dark);margin-bottom:16px;}
+
+/* ---------- Responsive ---------- */
+@media (max-width:920px){
+  .about-grid,.contact-grid,.form-row{grid-template-columns:1fr;}
+  .footer-grid{grid-template-columns:1fr 1fr;}
+  .stats-section{grid-template-columns:1fr 1fr;}
+  .mv-grid{grid-template-columns:1fr;}
+}
+@media (max-width:760px){
+  .nav-links{position:fixed;top:0;right:-100%;width:78%;height:100vh;background:var(--surface);
+    flex-direction:column;justify-content:center;gap:30px;transition:right .5s ease;box-shadow:-10px 0 40px rgba(0,0,0,.15);}
+  .nav-links.open{right:0;}
+  .hamburger{display:flex;}
+  .footer-grid{grid-template-columns:1fr;}
+  .detail-nav{flex-direction:column;align-items:stretch;}
+  .detail-nav a{justify-content:center;}
+}
+</style>
+</head>
+<body data-theme="light">
+
+<div id="loader"><div class="loader-ring"></div></div>
+
+<!-- ============ NAVBAR ============ -->
+<nav class="navbar" id="navbar">
+  <a href="#home" class="brand" onclick="navigateTo('home')">
+    <span class="brand-mark">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#4B4B4B" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+    </span>
+    LENSA
+  </a>
+  <div class="nav-links" id="navLinks">
+    <a href="#home" data-page="home" onclick="navigateTo('home')">Beranda</a>
+    <a href="#berita" data-page="berita" onclick="navigateTo('berita')">Berita</a>
+    <a href="#galeri" data-page="galeri" onclick="navigateTo('galeri')">Galeri</a>
+    <a href="#tentang" data-page="tentang" onclick="navigateTo('tentang')">Tentang</a>
+    <a href="#tim" data-page="tim" onclick="navigateTo('tim')">Tim</a>
+    <a href="#kontak" data-page="kontak" onclick="navigateTo('kontak')">Kontak</a>
+  </div>
+  <div class="nav-actions">
+    <button class="icon-btn" id="darkToggle" title="Mode Gelap">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+    <button class="icon-btn hamburger" id="hamburgerBtn" title="Menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+  </div>
+</nav>
+
+<!-- ============ PAGE: HOME ============ -->
+<div class="page active" id="page-home">
+  <section class="hero">
+    <div class="hero-noise"></div>
+    <div class="hero-orb orb1"></div>
+    <div class="hero-orb orb2"></div>
+    <div class="hero-content">
+      <span class="hero-eyebrow">✦ Media Jurnalistik Sekolah</span>
+      <h1>Website Organisasi Pers</h1>
+      <p>Media dokumentasi seluruh kegiatan organisasi yang menyajikan berita, informasi, dan karya jurnalistik secara profesional.</p>
+      <div class="hero-btns">
+        <a class="btn btn-primary" href="#berita" onclick="navigateTo('berita')">
+          Lihat Berita
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a class="btn btn-ghost" href="#galeri" onclick="navigateTo('galeri')">Dokumentasi Kegiatan</a>
+      </div>
+    </div>
+    <div class="scroll-cue">Scroll ↓</div>
+  </section>
+
+  <!-- Berita Terbaru -->
+  <section class="section" id="beritaTerbaruHome">
+    <div class="section-head reveal">
+      <span class="eyebrow-tag">Terkini</span>
+      <h2>Berita Terbaru</h2>
+      <p>Liputan dan dokumentasi terbaru dari setiap sudut kegiatan sekolah, ditulis langsung oleh tim redaksi kami.</p>
+    </div>
+    <div class="news-grid" id="homeNewsGrid"></div>
+    <div class="load-more-wrap reveal">
+      <a class="btn btn-primary" href="#berita" onclick="navigateTo('berita')">Lihat Semua Berita</a>
+    </div>
+  </section>
+
+  <!-- Statistik -->
+  <section class="section">
+    <div class="stats-section reveal">
+      <div class="stat"><h3 data-count="128">0</h3><p>Total Berita</p></div>
+      <div class="stat"><h3 data-count="342">0</h3><p>Total Dokumentasi</p></div>
+      <div class="stat"><h3 data-count="46">0</h3><p>Jumlah Anggota</p></div>
+      <div class="stat"><h3 data-count="87">0</h3><p>Kegiatan Diliput</p></div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ PAGE: BERITA ============ -->
+<div class="page" id="page-berita">
+  <section class="section" style="padding-top:150px;">
+    <div class="section-head reveal">
+      <span class="eyebrow-tag">Portal Berita</span>
+      <h2>Seluruh Berita &amp; Liputan</h2>
+      <p>Telusuri seluruh arsip berita, cari topik yang kamu minati, atau saring berdasarkan kategori.</p>
+    </div>
+    <div class="controls-bar reveal">
+      <div class="search-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input type="text" id="searchInput" placeholder="Cari berita, misalnya: workshop, prestasi...">
+      </div>
+    </div>
+    <div class="filters reveal" id="filterBar" style="margin-bottom:44px;justify-content:center;"></div>
+    <div class="news-grid" id="allNewsGrid"></div>
+    <div class="pagination" id="pagination"></div>
+  </section>
+</div>
+
+<!-- ============ PAGE: DETAIL ============ -->
+<div class="page" id="page-detail">
+  <section class="section" style="padding-top:150px;">
+    <div class="detail-wrap" id="detailContent"></div>
+  </section>
+</div>
+
+<!-- ============ PAGE: GALERI ============ -->
+<div class="page" id="page-galeri">
+  <section class="section" style="padding-top:150px;">
+    <div class="section-head reveal">
+      <span class="eyebrow-tag">Dokumentasi</span>
+      <h2>Galeri Kegiatan</h2>
+      <p>Kumpulan momen dari berbagai kegiatan yang telah diabadikan oleh tim fotografi dan videografi kami.</p>
+    </div>
+    <div class="gallery-grid" id="galleryGrid"></div>
+  </section>
+</div>
+
+<!-- ============ PAGE: TENTANG ============ -->
+<div class="page" id="page-tentang">
+  <section class="section" style="padding-top:150px;">
+    <div class="section-head reveal">
+      <span class="eyebrow-tag">Profil</span>
+      <h2>Tentang Organisasi</h2>
+      <p>Mengenal lebih dekat organisasi pers sekolah kami — perjalanan, nilai, dan semangat di baliknya.</p>
+    </div>
+
+    <div class="about-grid reveal">
+      <div class="about-visual">
+        <img src="https://picsum.photos/id/24/900/700" alt="Tim redaksi bekerja" loading="lazy">
+      </div>
+      <div class="about-text">
+        <h3>LENSA — Suara &amp; Sudut Pandang Sekolah</h3>
+        <p>LENSA adalah organisasi pers sekolah yang berdiri sebagai wadah bagi siswa untuk belajar jurnalistik, fotografi, videografi, dan multimedia secara langsung melalui praktik nyata.</p>
+        <p>Kami percaya setiap kegiatan sekolah punya cerita yang layak didokumentasikan dan disampaikan secara jujur, rapi, dan menarik kepada seluruh warga sekolah.</p>
+      </div>
+    </div>
+
+    <div class="mv-grid reveal">
+      <div class="mv-card">
+        <div class="icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+        <h4>Visi</h4>
+        <p>Menjadi organisasi pers sekolah yang kredibel, kreatif, dan menjadi rujukan informasi utama seluruh warga sekolah.</p>
+      </div>
+      <div class="mv-card">
+        <div class="icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+        <h4>Misi</h4>
+        <p>Mendokumentasikan kegiatan sekolah secara akurat, melatih keterampilan jurnalistik siswa, dan menyajikan berita yang bermanfaat dan mendidik.</p>
+      </div>
+    </div>
+
+    <div class="timeline reveal">
+      <div class="tl-item"><h5>Awal Berdiri</h5><p>Organisasi pers sekolah dibentuk oleh sekelompok siswa yang memiliki minat pada dunia jurnalistik dan fotografi.</p></div>
+      <div class="tl-item"><h5>Perkembangan</h5><p>Dibentuk divisi Redaksi, Fotografi, Videografi, dan Multimedia untuk memperluas cakupan liputan.</p></div>
+      <div class="tl-item"><h5>Saat Ini</h5><p>Aktif meliput seluruh kegiatan sekolah dan mengelola portal berita digital secara rutin.</p></div>
+    </div>
+
+    <div class="struktur-wrap reveal">
+      <h3 style="text-align:center;margin-bottom:34px;font-size:1.5rem;">Struktur Organisasi</h3>
+      <div class="struktur-top">
+        <div class="org-node"><h6>Pembina</h6><span>Guru Pembimbing</span></div>
+      </div>
+      <div class="struktur-row">
+        <div class="org-node lead"><h6>Ketua Organisasi</h6><span>Pemimpin Redaksi</span></div>
+      </div>
+      <div class="struktur-row">
+        <div class="org-node"><h6>Tim Redaksi</h6><span>Penulisan &amp; Editorial</span></div>
+        <div class="org-node"><h6>Tim Fotografi</h6><span>Dokumentasi Foto</span></div>
+        <div class="org-node"><h6>Tim Videografi</h6><span>Dokumentasi Video</span></div>
+        <div class="org-node"><h6>Tim Multimedia</h6><span>Desain &amp; Publikasi</span></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ PAGE: TIM ============ -->
+<div class="page" id="page-tim">
+  <section class="section" style="padding-top:150px;">
+    <div class="section-head reveal">
+      <span class="eyebrow-tag">Orang di Balik Layar</span>
+      <h2>Tim Kami</h2>
+      <p>Siswa-siswa yang bekerja setiap hari untuk menghadirkan berita dan dokumentasi terbaik.</p>
+    </div>
+    <div class="team-tabs reveal" id="teamTabs"></div>
+    <div class="team-grid" id="teamGrid"></div>
+  </section>
+</div>
+
+<!-- ============ PAGE: KONTAK ============ -->
+<div class="page" id="page-kontak">
+  <section class="section" style="padding-top:150px;">
+    <div class="section-head reveal">
+      <span class="eyebrow-tag">Hubungi Kami</span>
+      <h2>Kontak</h2>
+      <p>Ada liputan, kritik, atau ingin berkolaborasi? Sampaikan pesanmu kepada tim kami.</p>
+    </div>
+    <div class="contact-grid reveal">
+      <div class="contact-info">
+        <div class="info-item">
+          <div class="icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><h5>Alamat</h5><p>Jl. Pendidikan No. 1, Kompleks Sekolah, Malang, Jawa Timur</p></div>
+        </div>
+        <div class="info-item">
+          <div class="icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M4 4h16v16H4z"/><path d="m4 4 8 9 8-9"/></svg></div>
+          <div><h5>Email</h5><p>redaksi.lensa@sekolah.sch.id</p></div>
+        </div>
+        <div class="info-item">
+          <div class="icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.68 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.32 1.85.55 2.81.68A2 2 0 0 1 22 16.92z"/></svg></div>
+          <div><h5>WhatsApp</h5><p>+62 812-3456-7890</p></div>
+        </div>
+        <div class="social-row">
+          <a class="icon-btn" href="#" title="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="#4B4B4B" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+          <a class="icon-btn" href="#" title="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="#4B4B4B" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+          <a class="icon-btn" href="#" title="YouTube"><svg viewBox="0 0 24 24" fill="none" stroke="#4B4B4B" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="m10 9 5 3-5 3z"/></svg></a>
+        </div>
+      </div>
+      <form class="contact-form" id="contactForm">
+        <div class="form-row">
+          <div class="form-group"><label>Nama</label><input type="text" placeholder="Nama lengkap" required></div>
+          <div class="form-group"><label>Email</label><input type="email" placeholder="nama@email.com" required></div>
+        </div>
+        <div class="form-group full" style="margin-bottom:16px;"><label>Subjek</label><input type="text" placeholder="Topik pesan"></div>
+        <div class="form-group full" style="margin-bottom:6px;"><label>Pesan</label><textarea placeholder="Tulis pesanmu di sini..." required></textarea></div>
+        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:16px;">Kirim Pesan</button>
+        <p class="form-note">Tim kami akan merespons pesanmu dalam 1–2 hari kerja.</p>
+      </form>
+    </div>
+  </section>
+</div>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="brand">
+        <span class="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#4B4B4B" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h10"/></svg></span>
+        LENSA
+      </div>
+      <p>Media dokumentasi seluruh kegiatan organisasi yang menyajikan berita, informasi, dan karya jurnalistik secara profesional.</p>
+      <div class="footer-social">
+        <a href="#" title="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/></svg></a>
+        <a href="#" title="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+        <a href="#" title="YouTube"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="m10 9 5 3-5 3z"/></svg></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h6>Menu</h6>
+      <a onclick="navigateTo('home')" href="#home">Beranda</a>
+      <a onclick="navigateTo('berita')" href="#berita">Berita</a>
+      <a onclick="navigateTo('galeri')" href="#galeri">Galeri</a>
+      <a onclick="navigateTo('tentang')" href="#tentang">Tentang</a>
+    </div>
+    <div class="footer-col">
+      <h6>Kategori</h6>
+      <a onclick="navigateTo('berita')" href="#berita">Prestasi</a>
+      <a onclick="navigateTo('berita')" href="#berita">Workshop</a>
+      <a onclick="navigateTo('berita')" href="#berita">Liputan Acara</a>
+      <a onclick="navigateTo('berita')" href="#berita">Pengumuman</a>
+    </div>
+    <div class="footer-col">
+      <h6>Kontak</h6>
+      <a onclick="navigateTo('kontak')" href="#kontak">redaksi.lensa@sekolah.sch.id</a>
+      <a onclick="navigateTo('kontak')" href="#kontak">+62 812-3456-7890</a>
+      <a onclick="navigateTo('kontak')" href="#kontak">Malang, Jawa Timur</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 LENSA — Organisasi Pers Sekolah. Seluruh hak cipta dilindungi.</span>
+    <span>Dibuat dengan bangga oleh Tim Multimedia</span>
+  </div>
+</footer>
+
+<!-- ============ LIGHTBOX ============ -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lbClose"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+  <button class="lightbox-prev" id="lbPrev"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+  <img id="lightboxImg" src="" alt="preview">
+  <button class="lightbox-next" id="lbNext"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
+</div>
+
+<script>
+/* ================= DATA ================= */
+const CATEGORIES = ["Kegiatan Organisasi","Liputan Acara","Prestasi","Dokumentasi","Workshop","Multimedia","Pengumuman"];
+
+const NEWS = [
+  {id:1,title:"Tim Basket Sekolah Raih Juara 1 Kompetisi Antar-SMA",cat:"Prestasi",date:"28 Jun 2026",author:"Aditya Pratama",img:"https://picsum.photos/id/1043/800/600",excerpt:"Perjuangan panjang tim basket sekolah akhirnya membuahkan hasil manis di kompetisi tingkat kota tahun ini.",content:["Setelah melalui babak penyisihan yang ketat, tim basket sekolah berhasil melangkah ke babak final dan mengalahkan tim unggulan dengan skor telak.","Kemenangan ini menjadi bukti kerja keras latihan rutin yang dilakukan tim selama tiga bulan terakhir di bawah bimbingan pelatih.","Pihak sekolah menyampaikan apresiasi tinggi dan berharap prestasi ini dapat memotivasi siswa lain untuk terus berkarya di bidang olahraga."],gallery:["https://picsum.photos/id/1043/400/300","https://picsum.photos/id/1044/400/300","https://picsum.photos/id/1050/400/300"]},
+  {id:2,title:"Workshop Fotografi Jurnalistik Bersama Alumni",cat:"Workshop",date:"25 Jun 2026",author:"Nadia Salsabila",img:"https://picsum.photos/id/250/800/600",excerpt:"Alumni organisasi pers berbagi teknik dasar fotografi jurnalistik kepada anggota baru divisi fotografi.",content:["Kegiatan workshop ini menghadirkan alumni yang kini berprofesi sebagai jurnalis foto di media nasional.","Peserta diajarkan teknik komposisi, pencahayaan, serta etika dalam mengambil gambar di lapangan.","Workshop ditutup dengan sesi praktik langsung di lingkungan sekolah dan review hasil foto peserta."],gallery:["https://picsum.photos/id/250/400/300","https://picsum.photos/id/251/400/300","https://picsum.photos/id/253/400/300"]},
+  {id:3,title:"Peringatan Hari Kemerdekaan Dimeriahkan Beragam Lomba",cat:"Liputan Acara",date:"20 Jun 2026",author:"Rizky Firmansyah",img:"https://picsum.photos/id/1011/800/600",excerpt:"Suasana meriah terasa di seluruh penjuru sekolah saat perayaan Hari Kemerdekaan berlangsung.",content:["Rangkaian acara dimulai dengan upacara bendera yang diikuti oleh seluruh siswa dan guru.","Dilanjutkan dengan berbagai perlombaan tradisional yang mengundang tawa dan semangat kebersamaan.","Acara ditutup dengan pembagian hadiah bagi para pemenang lomba di lapangan utama sekolah."],gallery:["https://picsum.photos/id/1011/400/300","https://picsum.photos/id/1012/400/300","https://picsum.photos/id/1015/400/300"]},
+  {id:4,title:"Divisi Multimedia Luncurkan Podcast Perdana Sekolah",cat:"Multimedia",date:"15 Jun 2026",author:"Bagas Wirawan",img:"https://picsum.photos/id/96/800/600",excerpt:"Podcast perdana ini mengangkat topik seputar kehidupan siswa dan tantangan belajar di era digital.",content:["Episode pertama podcast ini menghadirkan bintang tamu dari perwakilan OSIS dan guru BK.","Proyek ini merupakan hasil kolaborasi tim multimedia dan tim redaksi selama dua minggu terakhir.","Podcast dapat didengarkan melalui kanal media sosial resmi organisasi pers sekolah."],gallery:["https://picsum.photos/id/96/400/300","https://picsum.photos/id/97/400/300","https://picsum.photos/id/103/400/300"]},
+  {id:5,title:"Rapat Kerja Tahunan Susun Program Kerja Baru",cat:"Kegiatan Organisasi",date:"10 Jun 2026",author:"Aditya Pratama",img:"https://picsum.photos/id/180/800/600",excerpt:"Seluruh pengurus berkumpul untuk merancang program kerja organisasi pers selama satu tahun ke depan.",content:["Rapat kerja membahas evaluasi program tahun sebelumnya serta target baru untuk periode mendatang.","Beberapa program unggulan yang disepakati antara lain pelatihan jurnalistik rutin dan kolaborasi lintas ekstrakurikuler.","Rapat berlangsung dengan penuh semangat dan diakhiri dengan pembagian tugas antar divisi."],gallery:["https://picsum.photos/id/180/400/300","https://picsum.photos/id/181/400/300","https://picsum.photos/id/183/400/300"]},
+  {id:6,title:"Dokumentasi Kegiatan Pentas Seni Akhir Semester",cat:"Dokumentasi",date:"5 Jun 2026",author:"Nadia Salsabila",img:"https://picsum.photos/id/1025/800/600",excerpt:"Pentas seni akhir semester menampilkan berbagai bakat siswa mulai dari musik, tari, hingga teater.",content:["Acara berlangsung meriah dengan dihadiri seluruh siswa, guru, dan wali murid.","Setiap kelas menampilkan pertunjukan terbaik hasil latihan selama satu bulan terakhir.","Tim dokumentasi mengabadikan momen ini dalam bentuk foto dan video untuk arsip sekolah."],gallery:["https://picsum.photos/id/1025/400/300","https://picsum.photos/id/1026/400/300","https://picsum.photos/id/1027/400/300"]},
+  {id:7,title:"Pengumuman Pendaftaran Anggota Baru Organisasi Pers",cat:"Pengumuman",date:"1 Jun 2026",author:"Rizky Firmansyah",img:"https://picsum.photos/id/60/800/600",excerpt:"Kesempatan bagi siswa yang tertarik bergabung dengan divisi redaksi, fotografi, videografi, atau multimedia.",content:["Pendaftaran dibuka untuk seluruh siswa kelas 10 dan 11 yang memiliki minat di bidang jurnalistik.","Calon anggota akan mengikuti seleksi berkas dan wawancara singkat bersama pengurus inti.","Informasi lebih lanjut dapat diperoleh melalui media sosial resmi atau menghubungi sekretariat organisasi."],gallery:["https://picsum.photos/id/60/400/300","https://picsum.photos/id/61/400/300","https://picsum.photos/id/65/400/300"]},
+  {id:8,title:"Liputan Khusus: Kunjungan Edukasi ke Stasiun TV Lokal",cat:"Liputan Acara",date:"27 Mei 2026",author:"Bagas Wirawan",img:"https://picsum.photos/id/48/800/600",excerpt:"Anggota organisasi pers berkesempatan melihat langsung proses produksi berita di stasiun televisi lokal.",content:["Kunjungan ini bertujuan memberi gambaran nyata tentang alur kerja jurnalistik di industri media profesional.","Peserta diajak berkeliling studio siaran dan ruang redaksi sambil berdiskusi dengan jurnalis senior.","Kegiatan ini menjadi inspirasi bagi anggota untuk terus mengembangkan kualitas liputan sekolah."],gallery:["https://picsum.photos/id/48/400/300","https://picsum.photos/id/49/400/300","https://picsum.photos/id/52/400/300"]},
+  {id:9,title:"Pelatihan Videografi Dasar untuk Anggota Baru",cat:"Workshop",date:"20 Mei 2026",author:"Aditya Pratama",img:"https://picsum.photos/id/26/800/600",excerpt:"Pelatihan ini membekali anggota baru dengan kemampuan dasar pengambilan dan penyuntingan video.",content:["Materi pelatihan mencakup teknik framing, stabilisasi gambar, dan dasar-dasar editing video.","Peserta juga diperkenalkan dengan perangkat lunak edit video yang umum digunakan tim multimedia.","Di akhir sesi, peserta membuat video pendek sebagai tugas praktik langsung."],gallery:["https://picsum.photos/id/26/400/300","https://picsum.photos/id/27/400/300","https://picsum.photos/id/28/400/300"]}
+];
+
+const GALLERY_IMAGES = [
+  "https://picsum.photos/id/1043/500/400","https://picsum.photos/id/250/500/400","https://picsum.photos/id/1011/500/400",
+  "https://picsum.photos/id/96/500/400","https://picsum.photos/id/180/500/400","https://picsum.photos/id/1025/500/400",
+  "https://picsum.photos/id/60/500/400","https://picsum.photos/id/48/500/400","https://picsum.photos/id/26/500/400",
+  "https://picsum.photos/id/1084/500/400","https://picsum.photos/id/1074/500/400","https://picsum.photos/id/1062/500/400"
+];
+
+const TEAM = [
+  {name:"Bu Sari Handayani",role:"Pembina",group:"Pembina",img:"https://picsum.photos/id/64/300/300"},
+  {name:"Aditya Pratama",role:"Ketua Organisasi",group:"Pimpinan",img:"https://picsum.photos/id/91/300/300"},
+  {name:"Nadia Salsabila",role:"Kepala Redaksi",group:"Redaksi",img:"https://picsum.photos/id/65/300/300"},
+  {name:"Rizky Firmansyah",role:"Editor Berita",group:"Redaksi",img:"https://picsum.photos/id/1005/300/300"},
+  {name:"Bagas Wirawan",role:"Kepala Fotografi",group:"Fotografi",img:"https://picsum.photos/id/1012/300/300"},
+  {name:"Citra Ayu",role:"Fotografer",group:"Fotografi",img:"https://picsum.photos/id/1027/300/300"},
+  {name:"Dimas Anggara",role:"Kepala Videografi",group:"Videografi",img:"https://picsum.photos/id/1074/300/300"},
+  {name:"Fira Amalia",role:"Videografer",group:"Videografi",img:"https://picsum.photos/id/1062/300/300"},
+  {name:"Galih Prasetyo",role:"Kepala Multimedia",group:"Multimedia",img:"https://picsum.photos/id/1084/300/300"},
+  {name:"Hana Putri",role:"Desainer Grafis",group:"Multimedia",img:"https://picsum.photos/id/1027/300/300"}
+];
+
+/* ================= STATE ================= */
+let currentCategory = "Semua";
+let searchTerm = "";
+let currentPage = 1;
+const PER_PAGE = 6;
+let currentTeamFilter = "Semua";
+let lightboxImages = [];
+let lightboxIndex = 0;
+
+/* ================= UTIL ================= */
+function catIcon(){
+  return `<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>`;
+}
+function userIcon(){
+  return `<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>`;
+}
+
+function renderCard(item){
+  return `
+  <div class="card" onclick="openDetail(${item.id})">
+    <div class="card-img">
+      <img src="${item.img}" alt="${item.title}" loading="lazy">
+      <span class="card-cat">${item.cat}</span>
+    </div>
+    <div class="card-body">
+      <div class="card-meta">
+        <span>${catIcon()} ${item.date}</span>
+        <span>${userIcon()} ${item.author}</span>
+      </div>
+      <h3>${item.title}</h3>
+      <p>${item.excerpt}</p>
+      <span class="card-link">Baca Selengkapnya
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </span>
+    </div>
+  </div>`;
+}
+
+/* ================= HOME NEWS ================= */
+function renderHomeNews(){
+  const grid = document.getElementById('homeNewsGrid');
+  grid.innerHTML = NEWS.slice(0,3).map(renderCard).join('');
+}
+
+/* ================= BERITA PAGE ================= */
+function renderFilters(){
+  const bar = document.getElementById('filterBar');
+  const all = ["Semua", ...CATEGORIES];
+  bar.innerHTML = all.map(c => `<button class="filter-chip ${c===currentCategory?'active':''}" onclick="setCategory('${c}')">${c}</button>`).join('');
+}
+function setCategory(cat){
+  currentCategory = cat;
+  currentPage = 1;
+  renderFilters();
+  renderNewsList();
+}
+function getFiltered(){
+  return NEWS.filter(n=>{
+    const matchCat = currentCategory === "Semua" || n.cat === currentCategory;
+    const matchSearch = n.title.toLowerCase().includes(searchTerm.toLowerCase()) || n.excerpt.toLowerCase().includes(searchTerm.toLowerCase());
+    return matchCat && matchSearch;
+  });
+}
+function renderNewsList(){
+  const filtered = getFiltered();
+  const grid = document.getElementById('allNewsGrid');
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PER_PAGE));
+  if(currentPage > totalPages) currentPage = totalPages;
+  const start = (currentPage-1)*PER_PAGE;
+  const pageItems = filtered.slice(start, start+PER_PAGE);
+
+  if(pageItems.length === 0){
+    grid.innerHTML = `<div class="empty-state">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <p>Tidak ada berita yang ditemukan untuk pencarian ini.</p>
+    </div>`;
+  } else {
+    grid.innerHTML = pageItems.map(renderCard).join('');
+  }
+  renderPagination(totalPages);
+  observeReveals();
+}
+function renderPagination(totalPages){
+  const pag = document.getElementById('pagination');
+  if(totalPages <= 1){ pag.innerHTML=''; return; }
+  let html = '';
+  for(let i=1;i<=totalPages;i++){
+    html += `<button class="page-btn ${i===currentPage?'active':''}" onclick="goToPage(${i})">${i}</button>`;
+  }
+  pag.innerHTML = html;
+}
+function goToPage(p){
+  currentPage = p;
+  renderNewsList();
+  document.getElementById('page-berita').scrollIntoView({behavior:'instant'});
+}
+
+/* ================= DETAIL PAGE ================= */
+function openDetail(id){
+  navigateTo('detail', id);
+}
+function renderDetail(id){
+  const idx = NEWS.findIndex(n=>n.id===id);
+  const item = NEWS[idx];
+  const prev = NEWS[idx-1];
+  const next = NEWS[idx+1];
+  const container = document.getElementById('detailContent');
+  if(!item){ container.innerHTML = '<p>Berita tidak ditemukan.</p>'; return; }
+
+  container.innerHTML = `
+    <div class="detail-cover"><img src="${item.img}" alt="${item.title}"></div>
+    <span class="detail-cat">${item.cat}</span>
+    <h1>${item.title}</h1>
+    <div class="detail-meta">
+      <span>${userIcon()} ${item.author}</span>
+      <span>${catIcon()} ${item.date}</span>
+    </div>
+    <div class="detail-body">
+      ${item.content.map(p=>`<p>${p}</p>`).join('')}
+    </div>
+    <div class="detail-gallery">
+      ${item.gallery.map((g,i)=>`<img src="${g}" alt="galeri ${i+1}" loading="lazy" onclick="openLightbox(${JSON.stringify(item.gallery).replace(/"/g,'&quot;')}, ${i})">`).join('')}
+    </div>
+    <div class="detail-nav">
+      ${prev ? `<a onclick="openDetail(${prev.id})" href="#"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M15 18l-6-6 6-6"/></svg> Berita Sebelumnya</a>` : `<span></span>`}
+      <a onclick="navigateTo('home')" href="#home" style="justify-content:center;">Kembali ke Beranda</a>
+      ${next ? `<a onclick="openDetail(${next.id})" href="#" style="justify-content:flex-end;">Berita Berikutnya <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 18l6-6-6-6"/></svg></a>` : `<span></span>`}
+    </div>
+  `;
+}
+
+/* ================= GALLERY PAGE ================= */
+function renderGallery(){
+  const grid = document.getElementById('galleryGrid');
+  grid.innerHTML = GALLERY_IMAGES.map((img,i)=>`
+    <div class="gallery-item" onclick="openLightbox(${JSON.stringify(GALLERY_IMAGES).replace(/"/g,'&quot;')}, ${i})">
+      <img src="${img}" alt="dokumentasi ${i+1}" loading="lazy">
+      <div class="gallery-overlay"><span>Dokumentasi Kegiatan #${i+1}</span></div>
+    </div>
+  `).join('');
+}
+
+/* ================= LIGHTBOX ================= */
+function openLightbox(images, index){
+  lightboxImages = images;
+  lightboxIndex = index;
+  document.getElementById('lightboxImg').src = images[index];
+  document.getElementById('lightbox').classList.add('open');
+}
+function closeLightbox(){ document.getElementById('lightbox').classList.remove('open'); }
+function shiftLightbox(dir){
+  lightboxIndex = (lightboxIndex + dir + lightboxImages.length) % lightboxImages.length;
+  document.getElementById('lightboxImg').src = lightboxImages[lightboxIndex];
+}
+document.getElementById('lbClose').onclick = closeLightbox;
+document.getElementById('lbPrev').onclick = ()=>shiftLightbox(-1);
+document.getElementById('lbNext').onclick = ()=>shiftLightbox(1);
+document.getElementById('lightbox').addEventListener('click',(e)=>{ if(e.target.id==='lightbox') closeLightbox(); });
+document.addEventListener('keydown',(e)=>{
+  if(!document.getElementById('lightbox').classList.contains('open')) return;
+  if(e.key==='Escape') closeLightbox();
+  if(e.key==='ArrowRight') shiftLightbox(1);
+  if(e.key==='ArrowLeft') shiftLightbox(-1);
+});
+
+/* ================= TEAM PAGE ================= */
+function renderTeamTabs(){
+  const groups = ["Semua","Pembina","Pimpinan","Redaksi","Fotografi","Videografi","Multimedia"];
+  document.getElementById('teamTabs').innerHTML = groups.map(g=>`<button class="filter-chip ${g===currentTeamFilter?'active':''}" onclick="setTeamFilter('${g}')">${g}</button>`).join('');
+}
+function setTeamFilter(g){
+  currentTeamFilter = g;
+  renderTeamTabs();
+  renderTeamGrid();
+}
+function renderTeamGrid(){
+  const filtered = currentTeamFilter==="Semua" ? TEAM : TEAM.filter(t=>t.group===currentTeamFilter);
+  document.getElementById('teamGrid').innerHTML = filtered.map(t=>`
+    <div class="profile-card">
+      <div class="profile-photo"><img src="${t.img}" alt="${t.name}" loading="lazy"></div>
+      <h5>${t.name}</h5>
+      <span>${t.role}</span>
+    </div>
+  `).join('');
+}
+
+/* ================= NAVIGATION (SPA) ================= */
+function navigateTo(page, param){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+page).classList.add('active');
+  document.querySelectorAll('.nav-links a').forEach(a=>a.classList.toggle('active', a.dataset.page===page));
+
+  if(page==='detail' && param){
+    renderDetail(param);
+    window.location.hash = 'berita/'+param;
+  } else {
+    window.location.hash = page;
+  }
+  window.scrollTo({top:0, behavior:'instant'});
+  document.getElementById('navLinks').classList.remove('open');
+  observeReveals();
+}
+
+function handleHashRoute(){
+  const hash = window.location.hash.replace('#','') || 'home';
+  if(hash.startsWith('berita/')){
+    const id = parseInt(hash.split('/')[1]);
+    navigateTo('detail', id);
+  } else if(['home','berita','galeri','tentang','tim','kontak'].includes(hash)){
+    navigateTo(hash);
+  } else {
+    navigateTo('home');
+  }
+}
+
+/* ================= SCROLL / NAVBAR ================= */
+window.addEventListener('scroll', ()=>{
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
+});
+
+/* ================= REVEAL ANIMATION ================= */
+let revealObserver;
+function observeReveals(){
+  if(revealObserver) revealObserver.disconnect();
+  revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); revealObserver.unobserve(e.target); } });
+  },{threshold:0.12});
+  document.querySelectorAll('.reveal').forEach(el=>revealObserver.observe(el));
+}
+
+/* ================= STAT COUNTER ================= */
+function animateCounters(){
+  document.querySelectorAll('[data-count]').forEach(el=>{
+    const target = parseInt(el.dataset.count);
+    let current = 0;
+    const step = Math.max(1, Math.ceil(target/60));
+    const timer = setInterval(()=>{
+      current += step;
+      if(current >= target){ current = target; clearInterval(timer); }
+      el.textContent = current;
+    }, 25);
+  });
+}
+const statObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ animateCounters(); statObserver.disconnect(); } });
+},{threshold:0.3});
+
+/* ================= DARK MODE ================= */
+document.getElementById('darkToggle').addEventListener('click', ()=>{
+  const body = document.body;
+  const next = body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  body.setAttribute('data-theme', next);
+});
+
+/* ================= SEARCH ================= */
+document.getElementById('searchInput').addEventListener('input',(e)=>{
+  searchTerm = e.target.value;
+  currentPage = 1;
+  renderNewsList();
+});
+
+/* ================= HAMBURGER ================= */
+document.getElementById('hamburgerBtn').addEventListener('click', ()=>{
+  document.getElementById('navLinks').classList.toggle('open');
+});
+
+/* ================= CONTACT FORM ================= */
+document.getElementById('contactForm').addEventListener('submit',(e)=>{
+  e.preventDefault();
+  const btn = e.target.querySelector('button[type="submit"]');
+  const originalText = btn.textContent;
+  btn.textContent = 'Terkirim ✓';
+  e.target.reset();
+  setTimeout(()=>{ btn.textContent = originalText; }, 2200);
+});
+
+/* ================= PARALLAX HERO ================= */
+window.addEventListener('scroll', ()=>{
+  const hero = document.querySelector('.hero');
+  if(!hero) return;
+  const y = window.scrollY;
+  if(y < window.innerHeight){
+    document.querySelector('.orb1').style.transform = `translateY(${y*0.25}px)`;
+    document.querySelector('.orb2').style.transform = `translateY(${y*0.18}px)`;
+  }
+});
+
+/* ================= INIT ================= */
+window.addEventListener('load', ()=>{
+  setTimeout(()=>{ document.getElementById('loader').classList.add('hide'); }, 500);
+});
+
+renderHomeNews();
+renderFilters();
+renderNewsList();
+renderGallery();
+renderTeamTabs();
+renderTeamGrid();
+handleHashRoute();
+observeReveals();
+statObserver.observe(document.querySelector('.stats-section'));
+window.addEventListener('hashchange', handleHashRoute);
+</script>
+</body>
+</html>
