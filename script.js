@@ -19,7 +19,7 @@ const GALLERY_IMAGES = [
 ];
 
 const TEAM = [
-  {name:"Dewi Wuryan",role:"Pembina",group:"Pembina",img:"dewi1.JPG"},
+  {name:"Dewi Wuryan",role:"Pembina",group:"Pembina",img:"tim/dewi1.JPG"},
   {name:"Feby Auril",role:"Ketua Organisasi",group:"Pimpinan",img:"https://picsum.photos/id/91/300/300"},
   {name:"Nabila Zakira Az-Zahra",role:"Kepala Redaksi",group:"Redaksi",img:"https://picsum.photos/id/65/300/300"},
   {name:"Rizky Firmansyah",role:"Editor Berita",group:"Redaksi",img:"https://picsum.photos/id/1005/300/300"},
