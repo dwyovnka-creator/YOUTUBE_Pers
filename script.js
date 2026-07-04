@@ -14,14 +14,14 @@ const NEWS = [
 ];
 
 const GALLERY_IMAGES = [
-  "https://picsum.photos/id/1043/500/400","https://picsum.photos/id/250/500/400","https://picsum.photos/id/1011/500/400",
+  "galeri/1.JPG","galeri/2.JPG","galeri/3.JPG",
   "https://picsum.photos/id/96/500/400","https://picsum.photos/id/180/500/400","https://picsum.photos/id/1025/500/400",
   "https://picsum.photos/id/60/500/400","https://picsum.photos/id/48/500/400","https://picsum.photos/id/26/500/400",
   "https://picsum.photos/id/1084/500/400","https://picsum.photos/id/1074/500/400","https://picsum.photos/id/1062/500/400"
 ];
 
 const TEAM = [
-  {name:"Bu Sari Handayani",role:"Pembina",group:"Pembina",img:"https://picsum.photos/id/64/300/300"},
+  {name:"Dewi Wuryan",role:"Pembina",group:"Pembina",img:"tim/pembina.JPG"},
   {name:"Aditya Pratama",role:"Ketua Organisasi",group:"Pimpinan",img:"https://picsum.photos/id/91/300/300"},
   {name:"Nadia Salsabila",role:"Kepala Redaksi",group:"Redaksi",img:"https://picsum.photos/id/65/300/300"},
   {name:"Rizky Firmansyah",role:"Editor Berita",group:"Redaksi",img:"https://picsum.photos/id/1005/300/300"},
