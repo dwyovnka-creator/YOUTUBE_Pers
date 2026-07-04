@@ -21,9 +21,9 @@ const GALLERY_IMAGES = [
 ];
 
 const TEAM = [
-  {name:"Bu Sari Handayani",role:"Pembina",group:"Pembina",img:"https://picsum.photos/id/64/300/300"},
-  {name:"Aditya Pratama",role:"Ketua Organisasi",group:"Pimpinan",img:"https://picsum.photos/id/91/300/300"},
-  {name:"Nadia Salsabila",role:"Kepala Redaksi",group:"Redaksi",img:"https://picsum.photos/id/65/300/300"},
+  {name:"Dewi Wuryan",role:"Pembina",group:"Pembina",img:"dewi1.JPG"},
+  {name:"Feby Auril",role:"Ketua Organisasi",group:"Pimpinan",img:"https://picsum.photos/id/91/300/300"},
+  {name:"Nabila Zakira Az-Zahra",role:"Kepala Redaksi",group:"Redaksi",img:"https://picsum.photos/id/65/300/300"},
   {name:"Rizky Firmansyah",role:"Editor Berita",group:"Redaksi",img:"https://picsum.photos/id/1005/300/300"},
   {name:"Bagas Wirawan",role:"Kepala Fotografi",group:"Fotografi",img:"https://picsum.photos/id/1012/300/300"},
   {name:"Citra Ayu",role:"Fotografer",group:"Fotografi",img:"https://picsum.photos/id/1027/300/300"},
