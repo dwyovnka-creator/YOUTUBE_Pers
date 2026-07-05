@@ -2,7 +2,7 @@
 const CATEGORIES = ["Kegiatan Organisasi","Liputan Acara","Prestasi","Dokumentasi","Workshop","Multimedia","Pengumuman"];
 
 const NEWS = [
-  {id:1,title:"Tim Basket Sekolah Raih Juara 1 Kompetisi Antar-SMA",cat:"Prestasi",date:"28 Jun 2026",author:"Aditya Pratama",img:"https://picsum.photos/id/1043/800/600",excerpt:"Perjuangan panjang tim basket sekolah akhirnya membuahkan hasil manis di kompetisi tingkat kota tahun ini.",content:["Setelah melalui babak penyisihan yang ketat, tim basket sekolah berhasil melangkah ke babak final dan mengalahkan tim unggulan dengan skor telak.","Kemenangan ini menjadi bukti kerja keras latihan rutin yang dilakukan tim selama tiga bulan terakhir di bawah bimbingan pelatih.","Pihak sekolah menyampaikan apresiasi tinggi dan berharap prestasi ini dapat memotivasi siswa lain untuk terus berkarya di bidang olahraga."],gallery:["https://picsum.photos/id/1043/400/300","https://picsum.photos/id/1044/400/300","https://picsum.photos/id/1050/400/300"]},
+  {id:1,title:"UI In Cinema",cat:"Prestasi",date:"24 Jun 2024",author:"Ditreux_16",img:"/4.JPG",excerpt:"Perjuangan panjang tim basket sekolah akhirnya membuahkan hasil manis di kompetisi tingkat kota tahun ini.",content:["Setelah melalui babak penyisihan yang ketat, tim basket sekolah berhasil melangkah ke babak final dan mengalahkan tim unggulan dengan skor telak.","Kemenangan ini menjadi bukti kerja keras latihan rutin yang dilakukan tim selama tiga bulan terakhir di bawah bimbingan pelatih.","Pihak sekolah menyampaikan apresiasi tinggi dan berharap prestasi ini dapat memotivasi siswa lain untuk terus berkarya di bidang olahraga."],gallery:["https://picsum.photos/id/1043/400/300","https://picsum.photos/id/1044/400/300","https://picsum.photos/id/1050/400/300"]},
   {id:2,title:"Workshop Fotografi Jurnalistik Bersama Alumni",cat:"Workshop",date:"25 Jun 2026",author:"Nadia Salsabila",img:"https://picsum.photos/id/250/800/600",excerpt:"Alumni organisasi pers berbagi teknik dasar fotografi jurnalistik kepada anggota baru divisi fotografi.",content:["Kegiatan workshop ini menghadirkan alumni yang kini berprofesi sebagai jurnalis foto di media nasional.","Peserta diajarkan teknik komposisi, pencahayaan, serta etika dalam mengambil gambar di lapangan.","Workshop ditutup dengan sesi praktik langsung di lingkungan sekolah dan review hasil foto peserta."],gallery:["https://picsum.photos/id/250/400/300","https://picsum.photos/id/251/400/300","https://picsum.photos/id/253/400/300"]},
   {id:3,title:"Peringatan Hari Kemerdekaan Dimeriahkan Beragam Lomba",cat:"Liputan Acara",date:"20 Jun 2026",author:"Rizky Firmansyah",img:"https://picsum.photos/id/1011/800/600",excerpt:"Suasana meriah terasa di seluruh penjuru sekolah saat perayaan Hari Kemerdekaan berlangsung.",content:["Rangkaian acara dimulai dengan upacara bendera yang diikuti oleh seluruh siswa dan guru.","Dilanjutkan dengan berbagai perlombaan tradisional yang mengundang tawa dan semangat kebersamaan.","Acara ditutup dengan pembagian hadiah bagi para pemenang lomba di lapangan utama sekolah."],gallery:["https://picsum.photos/id/1011/400/300","https://picsum.photos/id/1012/400/300","https://picsum.photos/id/1015/400/300"]},
   {id:4,title:"Divisi Multimedia Luncurkan Podcast Perdana Sekolah",cat:"Multimedia",date:"15 Jun 2026",author:"Bagas Wirawan",img:"https://picsum.photos/id/96/800/600",excerpt:"Podcast perdana ini mengangkat topik seputar kehidupan siswa dan tantangan belajar di era digital.",content:["Episode pertama podcast ini menghadirkan bintang tamu dari perwakilan OSIS dan guru BK.","Proyek ini merupakan hasil kolaborasi tim multimedia dan tim redaksi selama dua minggu terakhir.","Podcast dapat didengarkan melalui kanal media sosial resmi organisasi pers sekolah."],gallery:["https://picsum.photos/id/96/400/300","https://picsum.photos/id/97/400/300","https://picsum.photos/id/103/400/300"]},
@@ -14,14 +14,14 @@ const NEWS = [
 ];
 
 const GALLERY_IMAGES = [
-  "/galeri/1.JPG","/galeri/2.JPG","/galeri/3.JPG",
+  "/1.JPG","/2.JPG","/3.JPG",
   "https://picsum.photos/id/96/500/400","https://picsum.photos/id/180/500/400","https://picsum.photos/id/1025/500/400",
   "https://picsum.photos/id/60/500/400","https://picsum.photos/id/48/500/400","https://picsum.photos/id/26/500/400",
   "https://picsum.photos/id/1084/500/400","https://picsum.photos/id/1074/500/400","https://picsum.photos/id/1062/500/400"
 ];
 
 const TEAM = [
-  {name:"Dewi Wuryan",role:"Pembina",group:"Pembina",img:"/tim/pembina.JPG"},
+  {name:"Dewi Wuryan",role:"Pembina",group:"Pembina",img:"/pembina.JPG"},
   {name:"Aditya Pratama",role:"Ketua Organisasi",group:"Pimpinan",img:"https://picsum.photos/id/91/300/300"},
   {name:"Nadia Salsabila",role:"Kepala Redaksi",group:"Redaksi",img:"https://picsum.photos/id/65/300/300"},
   {name:"Rizky Firmansyah",role:"Editor Berita",group:"Redaksi",img:"https://picsum.photos/id/1005/300/300"},
@@ -72,10 +72,10 @@ function renderCard(item){
 }
 
 /* ================= ADMIN DATA STORE (localStorage) ================= */
-const ADMIN_PASSWORD = 'lensa2026';
-const LS_NEWS_KEY = 'lensa_admin_news';
-const LS_GALLERY_KEY = 'lensa_admin_gallery';
-const LS_SESSION_KEY = 'lensa_admin_session';
+const ADMIN_PASSWORD = 'youtube2026';
+const LS_NEWS_KEY = 'yt_admin_news';
+const LS_GALLERY_KEY = 'yt_admin_gallery';
+const LS_SESSION_KEY = 'yt_admin_session';
 
 function getStoredNews(){
   try{ return JSON.parse(localStorage.getItem(LS_NEWS_KEY)) || []; } catch(e){ return []; }
@@ -535,16 +535,6 @@ document.getElementById('searchInput').addEventListener('input',(e)=>{
 /* ================= HAMBURGER ================= */
 document.getElementById('hamburgerBtn').addEventListener('click', ()=>{
   document.getElementById('navLinks').classList.toggle('open');
-});
-
-/* ================= CONTACT FORM ================= */
-document.getElementById('contactForm').addEventListener('submit',(e)=>{
-  e.preventDefault();
-  const btn = e.target.querySelector('button[type="submit"]');
-  const originalText = btn.textContent;
-  btn.textContent = 'Terkirim ✓';
-  e.target.reset();
-  setTimeout(()=>{ btn.textContent = originalText; }, 2200);
 });
 
 /* ================= PARALLAX HERO ================= */
